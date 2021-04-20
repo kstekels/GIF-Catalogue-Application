@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 extension CollectionViewController {
     //MARK: - SetUp
     func searchBarSetUp() {
@@ -16,7 +17,7 @@ extension CollectionViewController {
     }
     
     func navigationBarSetUp() {
-        title = "Gif Catalogue App"
+//        title = "GIF Catalogue App"
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Browse GIF images"
 
@@ -48,6 +49,32 @@ extension CollectionViewController {
             collectionView.reloadData()
         } else {
             print("Parsing Error")
+        }
+    }
+    
+    func getBorderColor() -> CGColor {
+        
+        let redNum = CGFloat(Double(Int.random(in: 0...10))/10)
+        let greenNum = CGFloat(Double(Int.random(in: 0...10))/10)
+        let blueNum = CGFloat(Double(Int.random(in: 0...10))/10)
+        let alphaNum = CGFloat(Double(Int.random(in: 4...10))/10)
+        
+        let myColor = CGColor(red: redNum, green: greenNum, blue: blueNum, alpha: alphaNum)
+        
+        return myColor
+    }
+    
+    func titleAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            self.title = ""
+            var charIndex = 0.0
+            for letter in "GIF Catalogue App" {
+                Timer.scheduledTimer(withTimeInterval: 0.02 * charIndex, repeats: false) { (timer) in
+                    self.title?.append(letter)
+                }
+                charIndex += 1
+            }
+            
         }
     }
 }
