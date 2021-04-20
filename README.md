@@ -23,3 +23,12 @@ Create a GIF search application using Giphy API service (not Giphy SDK).
 - Any and all 3<sup>rd</sup> party frameworks are allowed;
 - Giphy API [documentation](https://developers.giphy.com/docs/api/endpoint#search);
 - Visual representation is up to your interpretation (except the `UICollectionView`).
+
+
+### Result Preview
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/31929901/115401922-9abaf280-a1f3-11eb-9bbb-81ea6bdbd913.gif)
+
+- 3<sup>rd</sup> party frameworks used:
+- - Kingfisher
+- - ViewAnimator
