@@ -1,16 +1,20 @@
 PODS:
   - Kingfisher (6.2.1)
+  - ViewAnimator (3.0.2)
 
 DEPENDENCIES:
   - Kingfisher (~> 6.0)
+  - ViewAnimator
 
 SPEC REPOS:
   trunk:
     - Kingfisher
+    - ViewAnimator
 
 SPEC CHECKSUMS:
   Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
+  ViewAnimator: 16435576cd44fca0b0d63147d5031fd3e91d295a
 
-PODFILE CHECKSUM: 3f9276499021fd3ec6363947f30ca3513a170638
+PODFILE CHECKSUM: 74a36421ff2557c25349c211c12ea49f2b84ad7d
 
 COCOAPODS: 1.8.4

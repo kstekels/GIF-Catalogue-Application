@@ -17,10 +17,14 @@ extension CollectionViewController {
     }
     
     func navigationBarSetUp() {
-//        title = "GIF Catalogue App"
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Browse GIF images"
 
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("Text Change")
+        reloadData(for: searchText)
     }
     
     
@@ -54,10 +58,10 @@ extension CollectionViewController {
     
     func getBorderColor() -> CGColor {
         
-        let redNum = CGFloat(Double(Int.random(in: 0...10))/10)
-        let greenNum = CGFloat(Double(Int.random(in: 0...10))/10)
-        let blueNum = CGFloat(Double(Int.random(in: 0...10))/10)
-        let alphaNum = CGFloat(Double(Int.random(in: 4...10))/10)
+        let redNum = CGFloat(Double(Int.random(in: 0...9))/10)
+        let greenNum = CGFloat(Double(Int.random(in: 0...9))/10)
+        let blueNum = CGFloat(Double(Int.random(in: 0...9))/10)
+        let alphaNum = CGFloat(Double(Int.random(in: 7...10))/10)
         
         let myColor = CGColor(red: redNum, green: greenNum, blue: blueNum, alpha: alphaNum)
         

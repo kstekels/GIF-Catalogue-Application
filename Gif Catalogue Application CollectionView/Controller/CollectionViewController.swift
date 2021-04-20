@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import ViewAnimator
 
 class CollectionViewController: UICollectionViewController, UISearchBarDelegate {
     
@@ -15,7 +16,7 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     let searchController = UISearchController(searchResultsController: nil)
     
     let scale = UIScreen.main.scale
-    
+        
     var widthPerItem: CGFloat = 0.0
     private let itemsPerRow: CGFloat = 2
     private let sectionInsets = UIEdgeInsets(
@@ -34,8 +35,10 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         searchBarSetUp()
         navigationBarSetUp()
         reloadData()
+
         
     }
+    
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -79,21 +82,14 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
                                                 .transition(.fade(0.7))], progressBlock: nil)
             
             
+            gifCell.layer.cornerRadius = 15
+            gifCell.layer.masksToBounds = true
+            gifCell.layer.borderWidth = 2
+            gifCell.layer.borderColor = getBorderColor()
             cell = gifCell
-            cell.layer.cornerRadius = 25
-            cell.layer.masksToBounds = true
-            cell.layer.borderWidth = 1
-            cell.layer.borderColor = getBorderColor()
         }
-        
+        cell.animate(animations: [AnimationType.zoom(scale: 0.1)], delay: 0.1, duration: 0.4)
         return cell
-    }
-    
-    
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("Text Change")
-        reloadData(for: searchText)
     }
     
 }
@@ -139,6 +135,8 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         print("Search")
         navigationItem.searchController?.dismiss(animated: true, completion: nil)
     }
+    
+    
     
     
     

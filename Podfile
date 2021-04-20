@@ -7,5 +7,7 @@ target 'Gif Catalogue Application CollectionView' do
 
   # Pods for Gif Catalogue Application CollectionView
   pod 'Kingfisher', '~> 6.0'
+  pod "ViewAnimator"
+
 
 end
