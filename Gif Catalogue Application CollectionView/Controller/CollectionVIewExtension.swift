@@ -18,11 +18,13 @@ extension CollectionViewController {
     func navigationBarSetUp() {
         title = "Gif Catalogue App"
         searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Browse GIF images"
+
     }
     
     
     //MARK: - Data
-    func reloadData(for searchText: String = "hello") {
+    func reloadData(for searchText: String = "") {
         
         urlString = "https://api.giphy.com/v1/gifs/search?q=\(searchText)&api_key=jfm68wbEKZVLAAcD0Yh7k6Zqq1LcNfr9"
         
@@ -35,7 +37,6 @@ extension CollectionViewController {
         }
         
         DispatchQueue.main.async {
-            print("Loading...")
             self.collectionView.reloadData()
         }
     }
@@ -44,7 +45,6 @@ extension CollectionViewController {
         let decoder = JSONDecoder()
         if let jsonGifs = try? decoder.decode(Gifs.self, from: json) {
             gifs = jsonGifs.data
-            print("Parsing Successfull")
             collectionView.reloadData()
         } else {
             print("Parsing Error")

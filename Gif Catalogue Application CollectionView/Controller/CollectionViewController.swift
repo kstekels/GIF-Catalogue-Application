@@ -9,13 +9,12 @@ import UIKit
 import Kingfisher
 
 class CollectionViewController: UICollectionViewController, UISearchBarDelegate {
-    
+        
     var gifs = [Gif]()
     var urlString: String = ""
     let searchController = UISearchController(searchResultsController: nil)
     
     let scale = UIScreen.main.scale
-//    let resizingProcessor = ResizingImageProcessor(referenceSize: CGSize(width: size.width * scale, height: size.height * scale))
     
     var widthPerItem: CGFloat = 0.0
     private let itemsPerRow: CGFloat = 2
@@ -27,11 +26,10 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(scale)
-        
+                
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-                let availableWidth = view.frame.width - paddingSpace
-                widthPerItem = availableWidth / itemsPerRow
+        let availableWidth = view.frame.width - paddingSpace
+        widthPerItem = availableWidth / itemsPerRow
         
         searchBarSetUp()
         navigationBarSetUp()
@@ -40,8 +38,25 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(gifs.count)
-        return gifs.count
+        
+        if gifs.count > 0 {
+            collectionView.backgroundView = nil
+            return gifs.count
+        }
+        
+        let rect = CGRect(x: 0,
+                          y: 0,
+                          width: collectionView.bounds.size.width,
+                          height: collectionView.bounds.size.height)
+        let noDataLabel: UILabel = UILabel(frame: rect)
+        noDataLabel.text = "There are no GIF image to display"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = UIColor.gray
+        noDataLabel.sizeToFit()
+        
+        collectionView.backgroundView = noDataLabel
+        
+        return 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -52,28 +67,21 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
             
             //MARK: - Image parameters
             let gifLink = gifs[indexPath.row].images.preview_gif.url
-//            let gifLink = "https://media.giphy.com/media/UZ2dBB8zEtcX9j2ulo/giphy.gif"
             let gifURL = URL(string: gifLink)
             
 
                         
             //MARK: - Image size downsampling
-//            let processor = DownsamplingImageProcessor(size: gifCell.gifImageView.bounds.size) |> RoundCornerImageProcessor(cornerRadius: 10)
-//            let processor = ResizingImageProcessor(referenceSize: gifCell.gifImageView.bounds.size) |> RoundCornerImageProcessor(cornerRadius: 10)
             gifCell.gifImageView.kf.indicatorType = .activity
             gifCell.gifImageView.kf.setImage(with: gifURL, placeholder: nil, options: [
-//                                .processor(processor),
                                 .scaleFactor(scale),
                                 .transition(.fade(0.7))], progressBlock: nil)
-//            gifCell.gifImageView.kf.setImage(with: gifURL)
             
-//            if gifCell.imageViewWidth.constant != widthPerItem {
-//                gifCell.imageViewHeight.constant = widthPerItem
-//                gifCell.imageViewWidth.constant = widthPerItem
-//            }
             
             cell = gifCell
-            
+            cell.layer.cornerRadius = 25
+            cell.layer.masksToBounds = true
+            cell.layer.borderWidth = 1
         }
         
         return cell
@@ -83,6 +91,8 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         print("Text Change")
         reloadData(for: searchText)
     }
+    
+    
 
 }
 
@@ -100,7 +110,6 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
       let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
       let availableWidth = view.frame.width - paddingSpace
       let widthPerItem = availableWidth / itemsPerRow
-      print("Available width: \(availableWidth), Width per item: \(widthPerItem)")
 
       return CGSize(width: widthPerItem, height: widthPerItem)
     }
@@ -122,12 +131,13 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGFloat {
       return sectionInsets.left
     }
-}
-
-extension UIImage {
-    func resized(to size: CGSize) -> UIImage {
-        return UIGraphicsImageRenderer(size: size).image { _ in
-            draw(in: CGRect(origin: .zero, size: .zero))
-        }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("Search")
+        navigationItem.searchController?.dismiss(animated: true, completion: nil)
     }
+    
+
+    
 }
