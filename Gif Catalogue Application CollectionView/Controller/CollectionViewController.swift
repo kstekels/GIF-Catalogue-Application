@@ -28,8 +28,10 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         titleAnimation()
+        
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
+        
         widthPerItem = availableWidth / itemsPerRow
         
         searchBarSetUp()

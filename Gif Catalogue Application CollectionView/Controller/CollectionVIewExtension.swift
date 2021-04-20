@@ -23,7 +23,6 @@ extension CollectionViewController {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("Text Change")
         reloadData(for: searchText)
     }
     

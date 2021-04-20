@@ -11,7 +11,4 @@ class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var gifImageView: UIImageView!
     
-//    var imageViewWidth: CGFloat = 0.0
-//    var imageViewHeight: CGFloat = 0.0
-    
 }
